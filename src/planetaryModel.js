@@ -31,13 +31,26 @@ export function getPlanetPositions(date) {
     return {
       planet,
       x: position.x,
-      y: position.y
+      y: position.y,
     };
   });
 }
 
-const planetModel = document.getElementById("planetary-model");
-const planetKey = document.getElementById("planet-key");
+// Create the planet model element if it doesn't exist
+let planetModel = document.getElementById("planetary-model");
+if (!planetModel) {
+  planetModel = document.createElement("div");
+  planetModel.id = "planetary-model";
+  document.body.appendChild(planetModel);
+}
+
+// Create the planet key element if it doesn't exist
+let planetKey = document.getElementById("planet-key");
+if (!planetKey) {
+  planetKey = document.createElement("div");
+  planetKey.id = "planet-key";
+  document.body.appendChild(planetKey);
+}
 
 const planetPositions = getPlanetPositions(new Date());
 

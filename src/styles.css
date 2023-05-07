@@ -2,3 +2,15 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.planet-key-row {
+  display: flex;
+  align-items: center;
+}
+
+.planet-key-color {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+}
