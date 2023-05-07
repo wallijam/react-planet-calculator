@@ -54,36 +54,15 @@ export function SolarSystem({ date, onPlanetClick }) {
       ctx.fill();
       ctx.stroke();
 
-      // Check if the mouse is over the planet
-      canvas.addEventListener("mousemove", (event) => {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-
-        if (
-          mouseX > xPos - 5 &&
-          mouseX < xPos + 5 &&
-          mouseY > yPos - 5 &&
-          mouseY < yPos + 5
-        ) {
-          canvas.style.cursor = "pointer";
-        } else {
-          canvas.style.cursor = "default";
-        }
-      });
-
-      // Handle click on planet
+      // Handle planet click
       canvas.addEventListener("click", (event) => {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-
-        if (
-          mouseX > xPos - 5 &&
-          mouseX < xPos + 5 &&
-          mouseY > yPos - 5 &&
-          mouseY < yPos + 5
-        ) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const x = event.clientX - canvasRect.left;
+        const y = event.clientY - canvasRect.top;
+        const distance = Math.sqrt(
+          Math.pow(x - xPos, 2) + Math.pow(y - yPos, 2)
+        );
+        if (distance <= 5) {
           onPlanetClick(planet);
         }
       });
