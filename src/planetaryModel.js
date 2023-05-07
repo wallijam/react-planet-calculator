@@ -35,3 +35,28 @@ export function getPlanetPositions(date) {
     };
   });
 }
+
+const planetModel = document.getElementById("planetary-model");
+const planetKey = document.getElementById("planet-key");
+
+const planetPositions = getPlanetPositions(new Date());
+
+planetPositions.forEach(({ planet, x, y }) => {
+  const planetElement = document.createElement("div");
+  planetElement.classList.add("planet");
+  planetElement.style.backgroundColor = planet.color;
+  planetElement.style.left = `${50 + x * 100}%`;
+  planetElement.style.top = `${50 + y * 100}%`;
+  planetElement.title = planet.name;
+  planetModel.appendChild(planetElement);
+});
+
+planets.forEach((planet) => {
+  const planetKeyElement = document.createElement("div");
+  planetKeyElement.classList.add("planet-key-row");
+  planetKeyElement.innerHTML = `
+    <div class="planet-key-color" style="background-color: ${planet.color}"></div>
+    <div class="planet-key-label">${planet.name}</div>
+  `;
+  planetKey.appendChild(planetKeyElement);
+});
