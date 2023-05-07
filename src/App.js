@@ -4,9 +4,11 @@ import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { SolarSystem } from "./SolarSystem";
+import { PlanetDetails } from "./PlanetDetails";
 
 function App() {
   const [date, setDate] = useState(new Date());
+  const [selectedPlanet, setSelectedPlanet] = useState(null);
 
   const handleSliderChange = (_, value) => {
     const newDate = new Date();
@@ -21,7 +23,12 @@ function App() {
           {date.toLocaleDateString()}
         </Typography>
       </Box>
-      <SolarSystem date={date} />
+      <SolarSystem date={date} onPlanetClick={setSelectedPlanet} />
+      {selectedPlanet && (
+        <Box my={4}>
+          <PlanetDetails planet={selectedPlanet} />
+        </Box>
+      )}
       <Box my={4}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>

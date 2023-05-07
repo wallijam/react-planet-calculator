@@ -1,9 +1,11 @@
-import { useRef, useEffect } from "react";
-import { Box } from "@mui/material";
+import { useRef, useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import { getPlanetPositions } from "./planetaryModel";
+import PlanetDetails from "./PlanetDetails";
 
 export function SolarSystem({ date }) {
   const canvasRef = useRef();
+  const [planetDetails, setPlanetDetails] = useState(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -61,16 +63,36 @@ export function SolarSystem({ date }) {
     ctx.fillStyle = "orange";
     ctx.fill();
     ctx.stroke();
+
+    // Add event listener to the canvas to close the planet details popup
+    canvas.addEventListener("click", () => {
+      setPlanetDetails(null);
+    });
   }, [date]);
 
   return (
-    <Box my={4} display="flex" justifyContent="center">
-      <canvas
-        ref={canvasRef}
-        width="400"
-        height="400"
-        style={{ border: "1px solid white" }}
-      />
+    <Box my={4} display="flex" flexDirection="column" alignItems="center">
+      <Typography variant="h5" align="center">
+        {date.toLocaleDateString()}
+      </Typography>
+      {planetDetails && (
+        <PlanetDetails
+          planet={planetDetails.planet}
+          onClose={() => setPlanetDetails(null)}
+        />
+      )}
+      <Box my={2} display="flex" justifyContent="center">
+        <canvas
+          ref={canvasRef}
+          width="400"
+          height="400"
+          style={{ border: "1px solid white" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setPlanetDetails(null);
+          }}
+        />
+      </Box>
     </Box>
   );
 }
